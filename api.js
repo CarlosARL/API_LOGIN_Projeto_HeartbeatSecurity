@@ -74,6 +74,6 @@ app.post("/login", async (req,res)=>{
     }
 })
 
-app.listen(3001,()=>{
+app.listen(3000,()=>{
     console.log("sevidor on . . .")
 })
