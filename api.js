@@ -56,23 +56,32 @@ app.post("/signup", async (req, res) => {
       res.send("Insira informações válidas");
     }
   });
-  
 
-app.post("/login", async (req,res)=>{
-    const user = await collection.findOne({ name: req.body.name });
-    const email = await collection.findOne({ email: req.body.email });
 
-    if (!user || !email) {
-      res.send("As credênciais estão incorretas");
-      return;
-    }
-    
-    if ((req.body.password === user.password)) {
-      res.send("logado");
-    } else {
-      res.send("A senha está incorreta");
-    }
-})
+app.post("/login", async (req, res) => {
+  // Tente encontrar o usuário pelo nome
+  var user = await collection.findOne({ name: req.body.name });
+
+  // Se não encontrar o usuário pelo nome, tente encontrar pelo e-mail
+  if (!user) {
+    user = await collection.findOne({ email: req.body.name });
+  }
+
+  // Se não encontrar o usuário nem pelo nome nem pelo e-mail, as credenciais estão incorretas
+  if (!user) {
+    res.send("As credências estão incorretas");
+    return;
+  }
+
+  // Se a senha for correta, o login é efetuado
+  if (req.body.password === user.password) {
+    res.send("logado");
+  } else {
+    // Senão, a senha está incorreta
+    res.send("A senha está incorreta");
+  }
+});
+
 
 app.listen(3001,()=>{
     console.log("sevidor on . . .")
