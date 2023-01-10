@@ -28,9 +28,10 @@ app.post("/signup", async (req, res) => {
       password: req.body.password,
     };
     if (
-      req.body.name !== "" &&
-      req.body.password !== "" &&
-      req.body.email !== ""
+      req.body.name != null &&
+      req.body.password != null &&
+      req.body.email != null &&
+      req.body.passwordConfirmation
     ) {
       const checkEmail = await collection.findOne({ email: req.body.email });
       const checkName = await collection.findOne({ name: req.body.name });
@@ -83,6 +84,6 @@ app.post("/login", async (req, res) => {
 });
 
 
-app.listen(3000,()=>{
+app.listen(3001,()=>{
     console.log("sevidor on . . .")
 })

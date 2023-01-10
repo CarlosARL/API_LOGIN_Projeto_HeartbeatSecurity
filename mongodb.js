@@ -13,7 +13,7 @@ mongoose.connect("mongodb+srv://carloslosada:V7vqtmobeSkYe6zJ@cluster0.y7sw3lq.m
 const LogInSchema= new mongoose.Schema({
     email:{
         type:String,
-        require:true
+        require:true,
     },
     name:{
         type:String,
@@ -22,7 +22,7 @@ const LogInSchema= new mongoose.Schema({
     password:{
         type:String,
         required:true
-    }
+    },
 })
 
 
