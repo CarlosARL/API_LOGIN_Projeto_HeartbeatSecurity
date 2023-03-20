@@ -83,6 +83,21 @@ app.post("/login", async (req, res) => {
   }
 });
 
+app.get("/name/:email", async (req, res) => {
+  collection.findOne({ email: req.params.email })
+      .then(estudante => {
+        if (estudante) {
+          const nome = estudante.name;
+          res.status(200).json({ nome});
+        } else {
+          res.status(404).json({ mensagem: `Estudante com matrícula ${req.params.email} não encontrado.` });
+        }
+      })
+      .catch(error => {
+        res.status(500).json({ mensagem: `Erro ao buscar estudante com matrícula ${req.params.email}: ${error.message}` });
+      });
+  });
+
 
 app.listen(3001,()=>{
     console.log("sevidor on . . .")
